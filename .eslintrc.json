@@ -1,3 +1,12 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "@rocketseat/eslint-config/next",
+    "next/core-web-vitals"
+  ],
+  "rules": {
+    "array-callback-return": "off",
+    "jsx-a11y/alt-text": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "prettier/prettier": "off"
+  }
 }
