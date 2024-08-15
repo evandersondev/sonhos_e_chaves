@@ -8,21 +8,18 @@ datasource db {
 }
 
 model Immobile {
-  id             String   @id @default(uuid())
-  code           String
-  address        String
-  name           String?
-  type           Type     @default(house)
-  price          String
-  size           String
-  rooms          Int
-  bathrooms      Int
-  condominiumFee String
-  garage         Int
-  referencePoint String
-  description    String
-  additionals    String[]
-  photosId       String[]
+  id          String   @id @default(uuid())
+  code        String
+  address     String
+  name        String?
+  type        Type     @default(house)
+  price       String
+  size        String
+  rooms       Int
+  bathrooms   Int
+  garage      Int
+  description String
+  photosId    String[]
 
   @@map("immobiles")
 }

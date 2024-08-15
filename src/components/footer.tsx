@@ -1,11 +1,14 @@
+'use client'
+
+import { motion } from 'framer-motion'
 import { Instagram, KeyRound, Mail, MessageCircle } from 'lucide-react'
 import { Button } from './ui/button'
 import { Separator } from './ui/separator'
 
 export function Footer() {
   return (
-    <footer className="w-full bg-white ">
-      <div className="py-16 h-[300] mx-auto flex-col w-[1280px] flex justify-center items-center">
+    <motion.footer viewport={{amount: 'all', once: true, margin: '150px'}} initial={{opacity: 0, y: 8}} whileInView={{ opacity: 1, y: 0 }} transition={{duration: 0.5}} className="w-full bg-white ">
+      <div className="py-16 h-[300] flex-col container flex justify-center items-center">
         <div className="flex items-center gap-2 mb-2">
           <KeyRound className="size-5" />
           <h1 className="text-xl font-semibold">Sonhos&Chaves</h1>
@@ -30,13 +33,13 @@ export function Footer() {
       </div>
 
       <div className="flex items-center h-16 border-t border-zinc-100">
-        <div className="mx-auto flex-col w-[1280px]">
-          <span className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} evandersondev. Todos os direitos
+        <div className="container flex-col">
+          <span className="text-xs text-muted-foreground">
+            © {new Date().getFullYear()} Sonhos&Chaves. Todos os direitos
             reservados.
           </span>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   )
 }

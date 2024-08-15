@@ -30,6 +30,7 @@ export default function Login() {
   })
 
   async function handleLoginSubmit({email, password}: LoginSchema) {
+    'use serve'
     try {
       const result = await signIn("credentials", {email, password, redirect: false })
 
@@ -51,11 +52,11 @@ export default function Login() {
   console.log(errors)
 
   return (
-    <div className="h-screen w-full flex items-center flex-col gap-8 justify-center">
+    <div className="h-screen w-full flex items-center flex-col gap-8 px-6 justify-center">
       <h1 className="text-center text-4xl font-bold">Login</h1>
       <form
         onSubmit={handleSubmit(handleLoginSubmit)}
-        className="w-80 flex flex-col gap-4"
+        className="w-full max-w-80 flex flex-col gap-4"
       >
         <div className="space-y-2">
           <Label htmlFor="email">E-mail</Label>

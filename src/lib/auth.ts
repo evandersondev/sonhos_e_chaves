@@ -10,27 +10,21 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     signOut: '/login',
     verifyRequest: '/login',
     error: '/login',
-    newUser: '/'
   },
   providers: [
     Credentials({
-        name: "Credentials",
-        credentials: {
-          email: { label: "Email", type: "email" },
-          password: { label: "Password", type: "password" },
-        },
-        authorize: async (credentials) => {
+        authorize: async (credentials: {email: string, password: string}) => {
           const user = await prisma.user.findUnique({
             where: { 
-                email: credentials.email as string,
+                email: credentials.email,
                 password: credentials.password
             },
           });
-  
-          if (user) {
-            return user;
+
+          if(user != null) {
+            return user
           }
-  
+
           return null;
         },
       }),
@@ -38,20 +32,4 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   session: {
     strategy: 'jwt'
   },
-  callbacks: {
-    jwt:  async ({token, user}) => {
-        if (user) {
-          token.id = user.id;
-        }
-
-        console.log(token)
-        return token;
-      },
-    session: async ({session, token}) => {
-      session.user.id = token.id as string;
-      console.log(session, token)
-
-      return session;
-    }
-  }
 })

@@ -10,11 +10,8 @@ const bodySchema = z.object({
   size: z.string().optional(),
   rooms: z.number().optional(),
   bathrooms: z.number().optional(),
-  condominiumFee: z.string().optional(),
   garage: z.number().optional(),
-  referencePoint: z.string().optional(),
   description: z.string().optional(),
-  additionals: z.array(z.string()).optional(),
 })
 
 export async function PUT(
@@ -35,11 +32,8 @@ export async function PUT(
       size: body.size,
       rooms: body.rooms,
       bathrooms: body.bathrooms,
-      condominiumFee: body.condominiumFee,
       garage: body.garage,
-      referencePoint: body.referencePoint,
       description: body.description,
-      additionals: body.additionals,
     },
   })
 

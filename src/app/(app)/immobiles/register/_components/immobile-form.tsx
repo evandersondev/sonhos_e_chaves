@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -40,14 +39,11 @@ const immobileSchema = z.object({
     .string()
     .min(1)
     .transform((value) => Number(value)),
-  condominiumFee: z.string().optional(),
   garage: z
     .string()
     .optional()
     .transform((value) => Number(value)),
-  referencePoint: z.string().optional(),
   description: z.string().optional(),
-  additionals: z.array(z.string()).optional(),
   files: z.array(z.instanceof(File)),
 })
 
@@ -76,51 +72,53 @@ export function ImmobileForm({immobile}: ImmobileFormProps) {
         size: immobile.size,
         rooms: immobile.rooms,
         bathrooms: immobile.bathrooms,
-        condominiumFee: immobile.condominiumFee,
         garage: immobile.garage,
-        referencePoint: immobile.referencePoint,
         description: immobile.description,
-        additionals: immobile.additionals,
         files: [],
     } : {},
   })
 
   const price = watch('price', immobile ? immobile.price : '')
   const type = watch('type', immobile ? immobile.type : '')
-  const condominiumFee = watch('condominiumFee', immobile ? immobile.condominiumFee : '')
-  const additionals = watch('additionals', immobile ? immobile.additionals : [])
   const filesData = watch('files', [])
 
-  console.log(errors)
+  
 
   async function handleRegisterSubmit(data: ImmobileSchema) {
     try {
       const photosId: string[] = []
+      const folderExists = await supabase.storage.from('poc').list(`${immobile?.code}`)
 
-      for await (const file of filesData) {
-        const response = await supabase.storage
-          .from(`poc/${data.code}`)
-          .upload(file.name, file)
+      if(folderExists.data.length > 1) {
+        for await (const file of filesData) {
+          const response = await supabase.storage
+            .from(`poc/${data.code}`)
+            .update(file.name, file)
+  
+          photosId.push(`https://dotlxibjbjydutyvfurz.supabase.co/storage/v1/object/public/${response.data.fullPath}`)
+        }
+      } else {
+        for await (const file of filesData) {
+          const response = await supabase.storage
+            .from(`poc/${data.code}`) 
+            .upload(file.name, file)
+  
+          photosId.push(`https://dotlxibjbjydutyvfurz.supabase.co/storage/v1/object/public/${response.data.fullPath}`)
+      }}
 
-        photosId.push(response.data.fullPath)
-      }
-
-      await createImmobile({
-        code: data.code,
-        name: data.type !== 'condominium' ? '' : data.name,
-        address: data.address,
-        type: data.type,
-        price: data.price,
-        size: data.size,
-        rooms: data.rooms,
-        bathrooms: data.bathrooms,
-        condominiumFee: data.condominiumFee,
-        garage: data.garage,
-        referencePoint: data.referencePoint,
-        description: data.description,
-        additionals: data.additionals ?? [],
-        photosId,
-      })
+        await createImmobile({
+          code: data.code,
+          name: data.type !== 'condominium' ? '' : data.name,
+          address: data.address,
+          type: data.type,
+          price: data.price,
+          size: data.size,
+          rooms: data.rooms,
+          bathrooms: data.bathrooms,
+          garage: data.garage,
+          description: data.description,
+          photosId,
+        })
 
       reset()
 
@@ -143,11 +141,8 @@ export function ImmobileForm({immobile}: ImmobileFormProps) {
         size: data.size,
         rooms: data.rooms,
         bathrooms: data.bathrooms,
-        condominiumFee: data.condominiumFee,
         garage: data.garage,
-        referencePoint: data.referencePoint,
         description: data.description,
-        additionals: data.additionals ?? [],
         photosId: immobile.photosId,
       })
 
@@ -161,8 +156,9 @@ export function ImmobileForm({immobile}: ImmobileFormProps) {
   return (
     <form
       onSubmit={handleSubmit(immobile ? handleEditSubmit :  handleRegisterSubmit)}
-      className="w-full grid grid-cols-2 gap-8"
+      className="w-full flex flex-col gap-8"
     >
+      <div className='w-full grid grid-cols-1 md:grid-cols-2 gap-8'>
       <div className="flex flex-col gap-6">
         <div className="space-y-1">
           <Label htmlFor="code">Código</Label>
@@ -185,15 +181,6 @@ export function ImmobileForm({immobile}: ImmobileFormProps) {
         </div>
 
         <div className="space-y-1">
-          <Label htmlFor="referencePoint">Ponto de referência</Label>
-          <Input
-            id="referencePoint"
-            placeholder="Digite o valor"
-            {...register('referencePoint')}
-          />
-        </div>
-
-        <div className="space-y-1">
           <Label htmlFor="price">Preço</Label>
           <Input
             id="price"
@@ -210,20 +197,10 @@ export function ImmobileForm({immobile}: ImmobileFormProps) {
         </div>
 
         <div className="space-y-1">
-          <Label htmlFor="size">Tamanho em m²</Label>
-          <Input
-            id="size"
-            type="number"
-            placeholder="Digite o tamanho"
-            {...register('size')}
-          />
-        </div>
-
-        <div className="space-y-1">
           <Label htmlFor="description">Descrição</Label>
           <Textarea
             className="resize-none"
-            rows={6}
+            rows={10}
             id="description"
             placeholder="Descrição..."
             {...register('description')}
@@ -231,10 +208,8 @@ export function ImmobileForm({immobile}: ImmobileFormProps) {
         </div>
       </div>
 
-      
-
       <div className="flex flex-col gap-6">
-      {type === 'condominium' && (<div className="space-y-1">
+      {(type === 'condominium' || type === 'apartment') && (<div className="space-y-1">
           <Label htmlFor="size">Nome do condomínio</Label>
           <Input
             id="name"
@@ -298,20 +273,6 @@ export function ImmobileForm({immobile}: ImmobileFormProps) {
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1">
-            <Label htmlFor="condominiumFee">Taxa de condominio</Label>
-            <Input
-              id="condominiumFee"
-              placeholder="R$ 0,00"
-              value={condominiumFee}
-              {...register('condominiumFee')}
-              onChange={(e) => {
-                const valueFomatted = formatCurrency(e.target.value)
-                setValue('condominiumFee', valueFomatted)
-              }}
-            />
-          </div>
-
-          <div className="space-y-1">
             <Label htmlFor="garage">Caragem</Label>
             <Input
               type="number"
@@ -321,11 +282,21 @@ export function ImmobileForm({immobile}: ImmobileFormProps) {
               {...register('garage')}
             />
           </div>
+
+          <div className="space-y-1">
+            <Label htmlFor="size">Tamanho em m²</Label>
+            <Input
+              id="size"
+              type="number"
+              placeholder="Digite o tamanho"
+              {...register('size')}
+            />
+          </div>
         </div>
 
         {!immobile && (
             <Label
-            className="w-full flex flex-col gap-4 items-center justify-center bg-zinc-50 hover:border-orange-200 cursor-pointer transition-colors border rounded-md h-40"
+            className="w-full h-40 lg:h-full flex flex-col gap-4 items-center justify-center bg-zinc-50 hover:border-orange-200 cursor-pointer transition-colors border rounded-md"
             htmlFor="files"
           >
             <ImagePlus className="size-8 text-zinc-400" />
@@ -354,136 +325,14 @@ export function ImmobileForm({immobile}: ImmobileFormProps) {
           </Label>
         ) }
 
-        <div className="flex w-52 flex-col gap-3">
-          <Label>Lazer e esporte</Label>
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="gym"
-                defaultChecked={immobile && immobile.additionals.includes('Academia')}
-                onCheckedChange={(value) => {
-                  if (value) {
-                    setValue('additionals', [...additionals, 'Academia'])
-                  } else {
-                    setValue(
-                      'additionals',
-                      additionals.filter((item) => item !== 'Academia'),
-                    )
-                  }
-                }}
-              />
-              <Label htmlFor="gym" className="font-normal">
-                Academia
-              </Label>
-            </div>
+      </div>
+      </div>
 
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="grill"
-                defaultChecked={immobile && immobile.additionals.includes('Churrasqueira')}
-                onCheckedChange={(value) => {
-                  if (value) {
-                    setValue('additionals', [...additionals, 'Churrasqueira'])
-                  } else {
-                    setValue(
-                      'additionals',
-                      additionals.filter((item) => item !== 'Churrasqueira'),
-                    )
-                  }
-                }}
-              />
-              <Label htmlFor="grill" className="font-normal">
-                Churrasqueira
-              </Label>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="gourmet-space"
-                defaultChecked={immobile && immobile.additionals.includes('Espaço gourmet')}
-                onCheckedChange={(value) => {
-                  if (value) {
-                    setValue('additionals', [...additionals, 'Espaço gourmet'])
-                  } else {
-                    setValue(
-                      'additionals',
-                      additionals.filter((item) => item !== 'Espaço gourmet'),
-                    )
-                  }
-                }}
-              />
-              <Label htmlFor="gourmet-space" className="font-normal">
-                Espaço gourmet
-              </Label>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="gardem"
-                defaultChecked={immobile && immobile.additionals.includes('Jardim')}
-                onCheckedChange={(value) => {
-                  if (value) {
-                    setValue('additionals', [...additionals, 'Jardim'])
-                  } else {
-                    setValue(
-                      'additionals',
-                      additionals.filter((item) => item !== 'Jardim'),
-                    )
-                  }
-                }}
-              />
-              <Label htmlFor="gardem" className="font-normal">
-                Jardim
-              </Label>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="pool"
-                defaultChecked={immobile && immobile.additionals.includes('Piscina')}
-                onCheckedChange={(value) => {
-                  if (value) {
-                    setValue('additionals', [...additionals, 'Piscina'])
-                  } else {
-                    setValue(
-                      'additionals',
-                      additionals.filter((item) => item !== 'Piscina'),
-                    )
-                  }
-                }}
-              />
-              <Label htmlFor="pool" className="font-normal">
-                Piscina
-              </Label>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="playground"
-                defaultChecked={immobile && immobile.additionals.includes('Piscina')}
-                onCheckedChange={(value) => {
-                  if (value) {
-                    setValue('additionals', [...additionals, 'Playground'])
-                  } else {
-                    setValue(
-                      'additionals',
-                      additionals.filter((item) => item !== 'Playground'),
-                    )
-                  }
-                }}
-              />
-              <Label htmlFor="playground" className="font-normal">
-                Playground
-              </Label>
-            </div>
-          </div>
-        </div>
-
-        <Button disabled={isSubmitting} type="submit" className="self-end">
+      <Button disabled={isSubmitting} type="submit" className="col-span-2 self-end w-fit">
         {isSubmitting && <Loader2 className="size-4 mr-2 animate-spin" />}
           {immobile ?  'Editar' : 'Adicionar'}
         </Button>
-      </div>
-    </form>
+    </form>      
+
   )
 }

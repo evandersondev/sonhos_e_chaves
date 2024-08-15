@@ -10,11 +10,8 @@ const bodySchema = z.object({
   size: z.string(),
   rooms: z.number(),
   bathrooms: z.number(),
-  condominiumFee: z.string(),
   garage: z.number(),
-  referencePoint: z.string(),
   description: z.string(),
-  additionals: z.array(z.string()),
   photosId: z.array(z.string()),
 })
 
@@ -31,11 +28,8 @@ export async function POST(req: Request) {
       size: body.size,
       rooms: body.rooms,
       bathrooms: body.bathrooms,
-      condominiumFee: body.type,
       garage: body.garage,
-      referencePoint: body.referencePoint,
       description: body.description,
-      additionals: body.additionals,
       photosId: body.photosId,
     },
   })

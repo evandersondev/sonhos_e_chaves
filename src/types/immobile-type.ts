@@ -8,10 +8,7 @@ export type ImmobileType = {
   size: string
   rooms: number
   bathrooms: number
-  condominiumFee: string
   garage: number
-  referencePoint: string
   description: string
-  additionals?: string[]
   photosId: string[]
 }

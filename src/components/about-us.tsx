@@ -1,16 +1,19 @@
+'use client'
+
 import { OUR_VALUES } from '@/constants/our-values'
+import { motion } from 'framer-motion'
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from './ui/accordion'
 
 export function AboutUs() {
   return (
-    <div className="py-16  mx-auto flex-col w-[1280px] flex justify-center items-center">
+    <div className="py-16  flex-col container flex justify-center items-center">
       <div className="flex items-center w-full gap-16">
-        <div className="flex flex-col w-1/2 mb-12">
+        <motion.div viewport={{amount: 'all', once: true, margin: '150px'}} initial={{opacity: 0, x: -8}} whileInView={{ opacity: 1, x: 0 }} transition={{duration: 0.8}} className="flex flex-col w-1/2 mb-12">
           <h2 className="mb-1 text-2xl font-bold">Sobre nós</h2>
           <p className="mb-8">Valores</p>
           <Accordion
@@ -36,9 +39,9 @@ export function AboutUs() {
               )
             })}
           </Accordion>
-        </div>
+        </motion.div>
 
-        <div className="flex flex-col items-center justify-end w-1/2">
+        <motion.div viewport={{amount: 'all', once: true}} initial={{opacity: 0, x: 8}} whileInView={{ opacity: 1, x: 0 }} transition={{duration: 0.8}} className="flex flex-col items-center justify-end w-1/2">
           <h2 className="self-start mb-8 text-6xl font-bold text-end">
             Nossa missão
           </h2>
@@ -47,7 +50,7 @@ export function AboutUs() {
             seus sonhos através de um serviço de excelência, transparência e
             expertise.
           </p>
-        </div>
+        </motion.div>
       </div>
     </div>
   )
