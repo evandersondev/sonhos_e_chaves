@@ -7,7 +7,8 @@
     "dev": "docker compose up -d && pnpm start:dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "prisma generate"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.4.2",
