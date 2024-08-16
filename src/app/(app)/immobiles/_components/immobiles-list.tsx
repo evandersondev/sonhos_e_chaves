@@ -15,7 +15,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { ImmobilesEmpty } from "./immobiles-empty";
 
@@ -34,7 +34,9 @@ export function ImmobilesList({
   totalPages,
   onHanldeSearch,
 }: ImmobilesListProps) {
-  const { refresh } = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { refresh, replace, push } = useRouter();
   const [loading, setLoading] = useState(false);
   const [modalDeleteIsOpen, setModalDeleteIsOpen] = useState(false);
 
@@ -46,15 +48,39 @@ export function ImmobilesList({
     refresh();
   }
 
+  function handleChangePage(page: number) {
+    const params = new URLSearchParams(searchParams);
+
+    params.set("page", String(page));
+
+    replace(`${pathname}?${params.toString()}`);
+  }
+
   function handlePrevPage() {
     if (currentPage > 1) {
+      handleChangePage(currentPage - 1);
       onHanldeSearch(currentPage - 1);
     }
   }
 
   function handleNextPage() {
     if (currentPage < totalPages) {
+      handleChangePage(currentPage + 1);
       onHanldeSearch(currentPage + 1);
+    }
+  }
+
+  function handleLastPage() {
+    if (currentPage < totalPages) {
+      handleChangePage(totalPages);
+      onHanldeSearch(totalPages);
+    }
+  }
+
+  function handleFirstPage() {
+    if (currentPage > 1) {
+      handleChangePage(1);
+      onHanldeSearch(1);
     }
   }
 
@@ -80,18 +106,29 @@ export function ImmobilesList({
               <Pagination className="w-fit">
                 <PaginationContent>
                   <PaginationItem>
-                    <Button size="icon" variant="outline">
+                    <Button
+                      disabled={currentPage === 1}
+                      onClick={handleFirstPage}
+                      size="icon"
+                      variant="outline"
+                    >
                       <ChevronsLeft className="size-4 " />
                     </Button>
                   </PaginationItem>
                   <PaginationItem>
-                    <Button size="icon" variant="outline">
+                    <Button
+                      disabled={currentPage === 1}
+                      onClick={handlePrevPage}
+                      size="icon"
+                      variant="outline"
+                    >
                       <ChevronLeft className="size-4 " />
                     </Button>
                   </PaginationItem>
                   <PaginationItem>
                     <Button
-                      onClick={() => onHanldeSearch(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      onClick={handleNextPage}
                       size="icon"
                       variant="outline"
                     >
@@ -99,7 +136,12 @@ export function ImmobilesList({
                     </Button>
                   </PaginationItem>
                   <PaginationItem>
-                    <Button size="icon" variant="outline">
+                    <Button
+                      disabled={currentPage === totalPages}
+                      onClick={handleLastPage}
+                      size="icon"
+                      variant="outline"
+                    >
                       <ChevronsRight className="size-4" />
                     </Button>
                   </PaginationItem>

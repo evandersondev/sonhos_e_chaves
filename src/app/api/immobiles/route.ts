@@ -11,7 +11,8 @@ export async function GET(request: NextRequest) {
       type,
       page = 1,
     } = Object.fromEntries(new URL(request.url).searchParams);
-    const skip = (Number(page) - 1) * 10;
+    const limit = 8;
+    const skip = (Number(page) - 1) * limit;
 
     const filters = {};
 
@@ -38,9 +39,9 @@ export async function GET(request: NextRequest) {
       filters["type"] = type;
     }
 
-    // Faz a query no Prisma usando os filtros
     const immobiles = await prisma.immobile.findMany({
       where: filters,
+      take: limit,
       skip,
     });
 
@@ -51,7 +52,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       immobiles,
       totalCount,
-      totalPages: Math.ceil(totalCount / 10),
+      totalPages: Math.ceil(totalCount / limit),
       currentPage: Number(page),
     });
   } catch (error) {
