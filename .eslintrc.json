@@ -8,6 +8,7 @@
     "jsx-a11y/alt-text": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "prettier/prettier": "off",
-    "dot-notation": "off"
+    "dot-notation": "off",
+    "react-hooks/exhaustive-deps": "off"
   }
 }

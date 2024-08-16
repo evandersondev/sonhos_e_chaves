@@ -3,7 +3,7 @@
 import { Filters } from "@/components/filters";
 import { api } from "@/lib/api";
 import { ImmobileType } from "@/types/immobile-type";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { ImmobilesList } from "./_components/immobiles-list";
 
 interface ResponseData {
@@ -52,20 +52,22 @@ export default function Immobiles({ searchParams }: ImmobilesProps) {
   }, []);
 
   return (
-    <div className="container">
-      <div className="h-full w-full gap-6">
-        <div className="py-8 space-y-8 h-full flex flex-col">
-          <Filters onHanldeSearch={load} />
+    <Suspense fallback={<div />}>
+      <div className="container">
+        <div className="h-full w-full gap-6">
+          <div className="py-8 space-y-8 h-full flex flex-col">
+            <Filters onHanldeSearch={load} />
 
-          <ImmobilesList
-            immobiles={immobiles}
-            totalCount={totalCount}
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onHanldeSearch={load}
-          />
+            <ImmobilesList
+              immobiles={immobiles}
+              totalCount={totalCount}
+              totalPages={totalPages}
+              currentPage={currentPage}
+              onHanldeSearch={load}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </Suspense>
   );
 }
