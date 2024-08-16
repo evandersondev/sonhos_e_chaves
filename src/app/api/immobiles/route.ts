@@ -3,14 +3,15 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
-    const {
-      q,
-      rooms,
-      bathrooms,
-      carage,
-      type,
-      page = 1,
-    } = Object.fromEntries(new URL(request.url).searchParams);
+    const searchParams = request.nextUrl.searchParams;
+
+    const q = searchParams.get("");
+    const rooms = searchParams.get("");
+    const bathrooms = searchParams.get("");
+    const carage = searchParams.get("");
+    const type = searchParams.get("");
+    const page = Number(searchParams.get("")) || 1;
+
     const limit = 8;
     const skip = (Number(page) - 1) * limit;
 
