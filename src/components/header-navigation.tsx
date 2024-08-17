@@ -2,45 +2,68 @@
 
 import { Plus } from "lucide-react";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 
 export function HeaderNavigation() {
   const { push } = useRouter();
+  const pathname = usePathname();
   const { data: session } = useSession();
+
+  const [activeSection, setActiveSection] = useState("");
+
+  const scrollToSection = (sectionId) => {
+    if (pathname !== "/") {
+      push("/");
+    }
+
+    setActiveSection(sectionId);
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <>
       <nav className="flex items-center gap-10">
-        <Link
-          className="hover:font-semibold hover:text-primary font-semibold transition-colors"
-          href="/"
+        <Button
+          data-enable={activeSection === "hero" && pathname === "/"}
+          className="hover:font-semibold data-[enable=true]:text-primary hover:text-primary font-semibold transition-colors"
+          variant="ghost"
+          onClick={() => scrollToSection("hero")}
         >
           Inicio
-        </Link>
+        </Button>
         <Separator orientation="vertical" className="h-5 bg-zinc-200" />
-        <Link
-          className="hover:font-semibold hover:text-primary font-semibold transition-colors"
-          href="/immobiles"
+        <Button
+          data-enable={activeSection === "immobiles" && pathname === "/"}
+          variant="ghost"
+          className="hover:font-semibold hover:text-primary data-[enable=true]:text-primary font-semibold transition-colors"
+          onClick={() => scrollToSection("immobiles")}
         >
           Imóveis
-        </Link>
+        </Button>
         <Separator orientation="vertical" className="h-5 bg-zinc-200" />
-        <Link
-          className="hover:font-semibold hover:text-primary font-semibold transition-colors"
-          href="/"
+        <Button
+          data-enable={activeSection === "about-us" && pathname === "/"}
+          variant="ghost"
+          className="hover:font-semibold hover:text-primary data-[enable=true]:text-primary font-semibold transition-colors"
+          onClick={() => scrollToSection("about-us")}
         >
           Sobre nós
-        </Link>
+        </Button>
         <Separator orientation="vertical" className="h-5 bg-zinc-200" />
-        <Link
-          className="hover:font-semibold hover:text-primary font-semibold transition-colors"
-          href="/"
+        <Button
+          data-enable={activeSection === "footer" && pathname === "/"}
+          variant="ghost"
+          className="hover:font-semibold hover:text-primary data-[enable=true]:text-primary font-semibold transition-colors"
+          onClick={() => scrollToSection("footer")}
         >
           Contato
-        </Link>
+        </Button>
       </nav>
 
       {!session ? (

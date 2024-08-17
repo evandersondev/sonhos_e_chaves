@@ -32,7 +32,7 @@ export function Immobile({ searchParams }: ImmobileProps) {
 
   useEffect(() => {
     async function load() {
-      const response = await api.get<ResponseData>("/immobiles");
+      const response = await api.get<ResponseData>("/immobiles?limit=8");
 
       setImmobiles(response.data.immobiles);
     }
@@ -67,7 +67,7 @@ export function Immobile({ searchParams }: ImmobileProps) {
           className="w-full max-w-5xl mx-auto"
         >
           <CarouselContent>
-            {immobiles.length < 1
+            {immobiles?.length < 1
               ? Array.from({ length: 10 }, (_, index) => {
                   return (
                     <CarouselItem

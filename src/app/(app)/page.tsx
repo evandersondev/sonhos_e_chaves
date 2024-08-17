@@ -9,13 +9,21 @@ export default function HomePage() {
   return (
     <Suspense fallback={<div />}>
       <div className="bg-white">
-        <Hero />
+        <section id="hero">
+          <Hero />
+        </section>
         <Separator orientation="horizontal" className="h-[1px] bg-zinc-100" />
-        <Immobile />
+        <section id="immobiles">
+          <Immobile />
+        </section>
         <Separator orientation="horizontal" className="h-[1px] bg-zinc-100" />
-        <AboutUs />
+        <section id="about-us">
+          <AboutUs />
+        </section>
         <Separator orientation="horizontal" className="h-[1px] bg-zinc-100" />
-        <Footer />
+        <section id="footer">
+          <Footer />
+        </section>
       </div>
     </Suspense>
   );

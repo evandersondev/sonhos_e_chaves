@@ -72,14 +72,18 @@ export function Filters({ onHanldeSearch }: FiltersProps) {
   }
 
   async function handleClearFilters() {
+    const params = new URLSearchParams(searchParams);
+
     setSearch("");
     setRooms("");
     setBathrooms("");
     setType("");
+    params.delete("q");
+    params.delete("rooms");
+    params.delete("bathrooms");
+    params.delete("type");
 
-    push(`${pathname}`);
-    await onHanldeSearch();
-
+    replace(`${pathname}`);
     refresh();
   }
 

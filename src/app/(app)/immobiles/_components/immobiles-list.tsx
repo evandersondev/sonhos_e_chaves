@@ -50,9 +50,7 @@ export function ImmobilesList({
 
   function handleChangePage(page: number) {
     const params = new URLSearchParams(searchParams);
-
     params.set("page", String(page));
-
     replace(`${pathname}?${params.toString()}`);
   }
 
@@ -86,13 +84,22 @@ export function ImmobilesList({
 
   return (
     <>
-      {immobiles.length < 1 ? (
+      {immobiles?.length < 1 ? (
         <ImmobilesEmpty />
       ) : (
         <div className="flex-col h-full flex-1 flex">
           <div className="grid grid-cols-4 gap-6">
             {immobiles?.map((immobile) => {
-              return <ImmobileCard key={immobile.code} immobile={immobile} />;
+              return (
+                <ImmobileCard
+                  key={immobile.code}
+                  immobile={immobile}
+                  loading={loading}
+                  handleDeleteImmobile={handleDeleteImmobile}
+                  modalDeleteIsOpen={modalDeleteIsOpen}
+                  setModalDeleteIsOpen={setModalDeleteIsOpen}
+                />
+              );
             })}
           </div>
           <footer className="flex items-center justify-between pb-8">
