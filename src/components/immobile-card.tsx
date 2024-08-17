@@ -10,6 +10,7 @@ import {
   Trash,
   Warehouse,
 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
@@ -33,10 +34,10 @@ import {
 
 type ImmobileCardProps = {
   immobile: ImmobileType;
-  loading: boolean;
-  modalDeleteIsOpen: boolean;
-  setModalDeleteIsOpen: Dispatch<SetStateAction<boolean>>;
-  handleDeleteImmobile(immobile: ImmobileType): Promise<void>;
+  loading?: boolean;
+  modalDeleteIsOpen?: boolean;
+  setModalDeleteIsOpen?: Dispatch<SetStateAction<boolean>>;
+  handleDeleteImmobile?: (immobile: ImmobileType) => Promise<void>;
 };
 
 export function ImmobileCard({
@@ -47,6 +48,7 @@ export function ImmobileCard({
   setModalDeleteIsOpen,
 }: ImmobileCardProps) {
   const router = useRouter();
+  const { data: session } = useSession();
 
   function handleImmbileView(id: string) {
     router.push(`/${id}`);
@@ -55,7 +57,7 @@ export function ImmobileCard({
   return (
     <Dialog open={modalDeleteIsOpen} onOpenChange={setModalDeleteIsOpen}>
       <ContextMenu>
-        <ContextMenuTrigger asChild>
+        <ContextMenuTrigger disabled={!session} asChild>
           <div className="h-[470px]">
             <Card
               onClick={() => handleImmbileView(immobile.id)}
