@@ -1,8 +1,10 @@
 "use client";
 
 import { Filters } from "@/components/filters";
+import { FiltersMobile } from "@/components/filters-mobile";
 import { api } from "@/lib/api";
 import { ImmobileType } from "@/types/immobile-type";
+import { useWindowWidth } from "@/utils/use-window-width";
 import { Suspense, useEffect, useState } from "react";
 import { ImmobilesList } from "./_components/immobiles-list";
 
@@ -24,6 +26,7 @@ type ImmobilesProps = {
 };
 
 export default function Immobiles({ searchParams }: ImmobilesProps) {
+  const windowWidth = useWindowWidth();
   const [immobiles, setImmobiles] = useState<ImmobileType[]>([]);
   const [totalCount, setTotalCount] = useState<number>();
   const [totalPages, setTotalPages] = useState<number>();
@@ -55,8 +58,12 @@ export default function Immobiles({ searchParams }: ImmobilesProps) {
     <Suspense fallback={<div />}>
       <div className="container">
         <div className="h-full w-full gap-6">
-          <div className="py-8 space-y-8 h-full flex flex-col">
-            <Filters onHanldeSearch={load} />
+          <div className="py-8 space-y-4 md:space-y-8 h-full flex flex-col">
+            {windowWidth > 768 ? (
+              <Filters onHanldeSearch={load} />
+            ) : (
+              <FiltersMobile onHanldeSearch={load} />
+            )}
 
             <ImmobilesList
               immobiles={immobiles}

@@ -58,10 +58,10 @@ export function ImmobileCard({
     <Dialog open={modalDeleteIsOpen} onOpenChange={setModalDeleteIsOpen}>
       <ContextMenu>
         <ContextMenuTrigger disabled={!session} asChild>
-          <div className="h-[470px]">
+          <div className="md:h-[470px]">
             <Card
               onClick={() => handleImmbileView(immobile.id)}
-              className="shadow-non relative rounded-xl overflow-hidden cursor-pointer hover:border-primary"
+              className="shadow-none relative rounded-xl overflow-hidden cursor-pointer hover:border-primary"
             >
               <CardHeader className="w-full h-52 p-0 rounded-t-md">
                 <Image

@@ -87,8 +87,8 @@ export function ImmobilesList({
       {immobiles?.length < 1 ? (
         <ImmobilesEmpty />
       ) : (
-        <div className="flex-col h-full flex-1 flex">
-          <div className="grid grid-cols-4 gap-6">
+        <div className="flex-col h-full flex-1 gap-6 flex">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {immobiles?.map((immobile) => {
               return (
                 <ImmobileCard
@@ -103,11 +103,11 @@ export function ImmobilesList({
             })}
           </div>
           <footer className="flex items-center justify-between pb-8">
-            <span className="text-sm text-muted-foreground">
+            <span className="text-xs md:text-sm text-muted-foreground">
               Total de {totalCount} encontrados
             </span>
             <div className="flex items-center gap-4">
-              <span className="text-sm text-muted-foreground">
+              <span className="text-xs md:text-sm text-muted-foreground">
                 Página {currentPage} de {totalPages}
               </span>
               <Pagination className="w-fit">

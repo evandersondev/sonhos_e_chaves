@@ -1,8 +1,10 @@
 "use client";
 
+import { useWindowWidth } from "@/utils/use-window-width";
 import { motion } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Filters } from "./filters";
+import { FiltersMobile } from "./filters-mobile";
 
 type HeroProps = {
   searchParams?: {
@@ -15,6 +17,7 @@ type HeroProps = {
 };
 
 export function Hero() {
+  const windowWidth = useWindowWidth();
   const searchParams = useSearchParams();
   const { replace, push } = useRouter();
 
@@ -26,7 +29,7 @@ export function Hero() {
       transition={{ duration: 0.5 }}
       className="py-16 w-full"
     >
-      <div className="container h-[400px] flex-col p-6 md:p-20 lg:p-40 items-center relative flex justify-center rounded-2xl">
+      <div className="container md:h-[400px] flex-col p-6 md:p-20 lg:p-40 items-center relative flex justify-center rounded-2xl">
         <h1 className="mb-4 md:mb-8 text-4xl md:text-5xl lg:text-6xl font-bold text-center">
           Seu novo lar está a apenas um clique de distância.
         </h1>
@@ -38,11 +41,19 @@ export function Hero() {
       </div>
 
       <div className="container">
-        <Filters
-          onHanldeSearch={async () => {
-            push(`immobiles?${searchParams.toString()}`);
-          }}
-        />
+        {windowWidth > 768 ? (
+          <Filters
+            onHanldeSearch={async () => {
+              push(`immobiles?${searchParams.toString()}`);
+            }}
+          />
+        ) : (
+          <FiltersMobile
+            onHanldeSearch={async () => {
+              push(`immobiles?${searchParams.toString()}`);
+            }}
+          />
+        )}
       </div>
     </motion.div>
   );
