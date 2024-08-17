@@ -15,7 +15,6 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
-import { SessionProvider } from "next-auth/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { ImmobilesEmpty } from "./immobiles-empty";
@@ -84,7 +83,7 @@ export function ImmobilesList({
   }
 
   return (
-    <SessionProvider>
+    <>
       {immobiles?.length < 1 ? (
         <ImmobilesEmpty />
       ) : (
@@ -159,6 +158,6 @@ export function ImmobilesList({
           </footer>
         </div>
       )}
-    </SessionProvider>
+    </>
   );
 }

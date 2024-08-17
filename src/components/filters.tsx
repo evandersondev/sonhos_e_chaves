@@ -88,8 +88,8 @@ export function Filters({ onHanldeSearch }: FiltersProps) {
   }
 
   return (
-    <div className="flex items-center gap-4 px-8 py-8 bg-white border border-zinc-200/50 rounded-xl">
-      <div className="flex min-w-40 flex-1 flex-col gap-2">
+    <div className="flex flex-col lg:flex-row items-center gap-4 px-8 py-8 bg-white border border-zinc-200/50 rounded-xl">
+      <div className="flex w-full lg:min-w-40 flex-1 flex-col gap-2">
         <Label htmlFor="search">Filtrar</Label>
         <Input
           value={search}
@@ -99,15 +99,18 @@ export function Filters({ onHanldeSearch }: FiltersProps) {
         />
       </div>
 
-      <Separator orientation="vertical" className="h-20 bg-zinc-200/50" />
+      <Separator
+        orientation="vertical"
+        className="h-20 bg-zinc-200/50 hidden lg:block"
+      />
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 w-full">
         <Label htmlFor="room">Quartos</Label>
         <Select
           value={rooms}
           onValueChange={(value) => handleChangeSelectRooms("rooms", value)}
         >
-          <SelectTrigger className="w-[120px]">
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="Quartos" />
           </SelectTrigger>
           <SelectContent>
@@ -122,15 +125,18 @@ export function Filters({ onHanldeSearch }: FiltersProps) {
         </Select>
       </div>
 
-      <Separator orientation="vertical" className="h-20 bg-zinc-200/50" />
+      <Separator
+        orientation="vertical"
+        className="h-20 bg-zinc-200/50 hidden lg:block"
+      />
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 w-full">
         <Label htmlFor="room">Banheiros</Label>
         <Select
           value={bathrooms}
           onValueChange={(value) => handleChangeSelectRooms("bathrooms", value)}
         >
-          <SelectTrigger className="w-[120px]">
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="Banheiros" />
           </SelectTrigger>
           <SelectContent>
@@ -145,15 +151,18 @@ export function Filters({ onHanldeSearch }: FiltersProps) {
         </Select>
       </div>
 
-      <Separator orientation="vertical" className="h-20 bg-zinc-200/50" />
+      <Separator
+        orientation="vertical"
+        className="h-20 bg-zinc-200/50 hidden lg:block"
+      />
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 w-full">
         <Label htmlFor="email">Tipo</Label>
         <Select
           value={type}
           onValueChange={(value) => handleChangeSelectRooms("type", value)}
         >
-          <SelectTrigger className="w-[200px]">
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="Tipo" />
           </SelectTrigger>
           <SelectContent>
@@ -168,14 +177,17 @@ export function Filters({ onHanldeSearch }: FiltersProps) {
         </Select>
       </div>
 
-      <Separator orientation="vertical" className="h-20 bg-zinc-200/50" />
+      <Separator
+        orientation="vertical"
+        className="h-20 bg-zinc-200/50 hidden lg:block"
+      />
 
-      <div className="flex items-center gap-4 mt-5">
+      <div className="flex items-center w-full gap-4 mt-5">
         <Button
           disabled={loading}
           type="button"
           onClick={handleSearchSubmit}
-          className="self-center"
+          className="self-center w-full md:w-fit"
         >
           {loading ? (
             <Loader2 className="size-4 mr-2 animate-spin" />

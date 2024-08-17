@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { SessionProvider } from "next-auth/react";
 import Link from "next/link";
 import { HeaderNavigation } from "./header-navigation";
 
@@ -20,9 +19,7 @@ export function Header() {
           </div>
         </Link>
 
-        <SessionProvider>
-          <HeaderNavigation />
-        </SessionProvider>
+        <HeaderNavigation />
       </div>
     </motion.header>
   );

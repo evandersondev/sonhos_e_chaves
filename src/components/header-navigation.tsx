@@ -28,11 +28,12 @@ export function HeaderNavigation() {
 
   return (
     <>
-      <nav className="flex items-center gap-10">
+      <nav className="flex w-fit justify-between items-center md:items-center gap-1 md:gap-10">
         <Button
           data-enable={activeSection === "hero" && pathname === "/"}
-          className="hover:font-semibold data-[enable=true]:text-primary hover:text-primary font-semibold transition-colors"
+          className="hover:font-semibold text-xs md:text-base data-[enable=true]:text-primary hover:text-primary font-semibold transition-colors"
           variant="ghost"
+          size="sm"
           onClick={() => scrollToSection("hero")}
         >
           Inicio
@@ -41,8 +42,9 @@ export function HeaderNavigation() {
         <Button
           data-enable={activeSection === "immobiles" && pathname === "/"}
           variant="ghost"
-          className="hover:font-semibold hover:text-primary data-[enable=true]:text-primary font-semibold transition-colors"
+          className="hover:font-semibold  text-xs md:text-base hover:text-primary data-[enable=true]:text-primary font-semibold transition-colors"
           onClick={() => scrollToSection("immobiles")}
+          size="sm"
         >
           Imóveis
         </Button>
@@ -50,8 +52,9 @@ export function HeaderNavigation() {
         <Button
           data-enable={activeSection === "about-us" && pathname === "/"}
           variant="ghost"
-          className="hover:font-semibold hover:text-primary data-[enable=true]:text-primary font-semibold transition-colors"
+          className="hover:font-semibold  text-xs md:text-base hover:text-primary data-[enable=true]:text-primary font-semibold transition-colors"
           onClick={() => scrollToSection("about-us")}
+          size="sm"
         >
           Sobre nós
         </Button>
@@ -59,17 +62,22 @@ export function HeaderNavigation() {
         <Button
           data-enable={activeSection === "footer" && pathname === "/"}
           variant="ghost"
-          className="hover:font-semibold hover:text-primary data-[enable=true]:text-primary font-semibold transition-colors"
+          className="hover:font-semibold  text-xs md:text-base hover:text-primary data-[enable=true]:text-primary font-semibold transition-colors"
           onClick={() => scrollToSection("footer")}
+          size="sm"
         >
           Contato
         </Button>
       </nav>
 
       {!session ? (
-        <div />
+        <div className="hidden md:block" />
       ) : (
-        <Button onClick={() => push("/immobiles/register")}>
+        <Button
+          className="hidden md:block"
+          size="sm"
+          onClick={() => push("/immobiles/register")}
+        >
           <Plus className="mr-2 size-4" />
           Adicionar
         </Button>

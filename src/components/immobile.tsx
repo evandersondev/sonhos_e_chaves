@@ -50,16 +50,18 @@ export function Immobile({ searchParams }: ImmobileProps) {
     >
       <div className="mb-12 container flex justify-between items-center">
         <div className="flex flex-col">
-          <h2 className="text-2xl font-bold">Imóveis</h2>
-          <p>Imóveis que inspiram. Lares que acolhem.</p>
+          <h2 className="text-xl md:text-2xl font-bold">Imóveis</h2>
+          <p className="text-sm md:text-base">
+            Imóveis que inspiram. Lares que acolhem.
+          </p>
         </div>
 
-        <Button asChild variant="outline">
+        <Button asChild size="sm" variant="outline">
           <Link href="/immobiles">Ver tudo</Link>
         </Button>
       </div>
 
-      <div>
+      <div className="px-20">
         <Carousel
           opts={{
             align: "start",
@@ -72,7 +74,7 @@ export function Immobile({ searchParams }: ImmobileProps) {
                   return (
                     <CarouselItem
                       key={index}
-                      className="md:basis-1/2 lg:basis-1/3"
+                      className="w-full md:basis-1/2 lg:basis-1/3"
                     >
                       <Skeleton className="h-[470px] w-full p-1" />
                     </CarouselItem>
@@ -82,7 +84,7 @@ export function Immobile({ searchParams }: ImmobileProps) {
                   return (
                     <CarouselItem
                       key={immobile.code}
-                      className="md:basis-1/2 lg:basis-1/3"
+                      className="w-full md:basis-1/2 lg:basis-1/3"
                     >
                       <ImmobileCard immobile={immobile} />
                     </CarouselItem>

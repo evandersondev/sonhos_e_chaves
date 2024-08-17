@@ -1,21 +1,27 @@
-'use client'
+"use client";
 
-import { OUR_VALUES } from '@/constants/our-values'
-import { motion } from 'framer-motion'
+import { OUR_VALUES } from "@/constants/our-values";
+import { motion } from "framer-motion";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from './ui/accordion'
+} from "./ui/accordion";
 
 export function AboutUs() {
   return (
-    <div className="py-16  flex-col container flex justify-center items-center">
-      <div className="flex items-center w-full gap-16">
-        <motion.div viewport={{amount: 'all', once: true, margin: '150px'}} initial={{opacity: 0, x: -8}} whileInView={{ opacity: 1, x: 0 }} transition={{duration: 0.8}} className="flex flex-col w-1/2 mb-12">
-          <h2 className="mb-1 text-2xl font-bold">Sobre nós</h2>
-          <p className="mb-8">Valores</p>
+    <div className="py-16 flex-col container flex justify-center items-center">
+      <div className="flex flex-col md:flex-row items-center w-full gap-12 md:gap-16">
+        <motion.div
+          viewport={{ amount: "all", once: true, margin: "150px" }}
+          initial={{ opacity: 0, x: -8 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col w-full md:w-1/2 mb-12"
+        >
+          <h2 className="mb-1 text-xl md:text-2xl font-bold">Sobre nós</h2>
+          <p className="text-sm md:text-base mb-8">Valores</p>
           <Accordion
             defaultValue={OUR_VALUES[0][0]}
             className="h-[400px]"
@@ -36,16 +42,22 @@ export function AboutUs() {
                     {value[1]}
                   </AccordionContent>
                 </AccordionItem>
-              )
+              );
             })}
           </Accordion>
         </motion.div>
 
-        <motion.div viewport={{amount: 'all', once: true}} initial={{opacity: 0, x: 8}} whileInView={{ opacity: 1, x: 0 }} transition={{duration: 0.8}} className="flex flex-col items-center justify-end w-1/2">
-          <h2 className="self-start mb-8 text-6xl font-bold text-end">
+        <motion.div
+          viewport={{ amount: "all", once: true }}
+          initial={{ opacity: 0, x: 8 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col items-center justify-end w-full md:w-1/2"
+        >
+          <h2 className="md:self-start mb-8 self-center text-4xl md:text-6xl font-bold text-end">
             Nossa missão
           </h2>
-          <p className="text-xl text-start text-muted-foreground">
+          <p className="md:text-xl text-center px-20 md:px-0 text-base md:text-start text-muted-foreground">
             Fornecer soluções imobiliárias de qualidade, conectando pessoas aos
             seus sonhos através de um serviço de excelência, transparência e
             expertise.
@@ -53,5 +65,5 @@ export function AboutUs() {
         </motion.div>
       </div>
     </div>
-  )
+  );
 }
