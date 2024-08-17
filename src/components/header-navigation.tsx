@@ -71,7 +71,7 @@ export function HeaderNavigation() {
       </nav>
 
       {!session ? (
-        <div className="hidden md:block" />
+        <div className="hidden" />
       ) : (
         <Button
           className="hidden md:block"

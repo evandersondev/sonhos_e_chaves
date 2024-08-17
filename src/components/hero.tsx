@@ -6,20 +6,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Filters } from "./filters";
 import { FiltersMobile } from "./filters-mobile";
 
-type HeroProps = {
-  searchParams?: {
-    q?: string;
-    rooms?: string;
-    bathrooms?: string;
-    garage?: string;
-    type?: string;
-  };
-};
-
 export function Hero() {
   const windowWidth = useWindowWidth();
   const searchParams = useSearchParams();
-  const { replace, push } = useRouter();
+  const { push } = useRouter();
 
   return (
     <motion.div

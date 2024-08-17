@@ -7,10 +7,12 @@ import { Immobile } from "@/components/immobile";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Plus } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Suspense } from "react";
 
 export default function HomePage() {
+  const { data: session } = useSession();
   const { push } = useRouter();
 
   return (
@@ -32,13 +34,17 @@ export default function HomePage() {
           <Footer />
         </section>
 
-        <Button
-          className="fixed bottom-6 right-6 z-50"
-          size="icon"
-          onClick={() => push("/immobiles/register")}
-        >
-          <Plus className="size-4" />
-        </Button>
+        {!session ? (
+          <div className="hidden" />
+        ) : (
+          <Button
+            className="fixed bottom-6 right-6 z-50"
+            size="icon"
+            onClick={() => push("/immobiles/register")}
+          >
+            <Plus className="size-4" />
+          </Button>
+        )}
       </div>
     </Suspense>
   );
