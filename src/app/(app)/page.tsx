@@ -38,7 +38,7 @@ export default function HomePage() {
           <div className="hidden" />
         ) : (
           <Button
-            className="fixed bottom-6 right-6 z-50"
+            className="fixed md:hidden bottom-6 right-6 z-50"
             size="icon"
             onClick={() => push("/immobiles/register")}
           >

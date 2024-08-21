@@ -24,9 +24,10 @@ export function Hero() {
           Seu novo lar está a apenas um clique de distância.
         </h1>
         <p className="px-0 md:px-16 text-base md:text-xl text-center text-muted-foreground">
-          Ser a imobiliária mais confiável e inovadora da região metropolitana,
-          reconhecida pelo compromisso com a excelência e pela satisfação dos
-          nossos clientes.
+          Na Sonhos&Chaves, nossa missão é transformar o sonho da casa própria
+          em uma realidade. Com experiência no mercado imobiliário, oferecemos
+          uma abordagem personalizada para ajudar você a encontrar o lar
+          perfeito.
         </p>
       </div>
 

@@ -88,27 +88,27 @@ export function ImmobileForm({ immobile }: ImmobileFormProps) {
     try {
       const photosId: string[] = [];
       const folderExists = await supabase.storage
-        .from("poc")
+        .from("images")
         .list(`${immobile?.code}`);
 
       if (folderExists.data.length > 1) {
         for await (const file of filesData) {
           const response = await supabase.storage
-            .from(`poc/${data.code}`)
+            .from(`images/${data.code}`)
             .update(file.name, file);
 
           photosId.push(
-            `https://dotlxibjbjydutyvfurz.supabase.co/storage/v1/object/public/${response.data.fullPath}`
+            `https://dgonkbsonymvqpykxlku.supabase.co/storage/v1/object/public/${response.data.fullPath}`
           );
         }
       } else {
         for await (const file of filesData) {
           const response = await supabase.storage
-            .from(`poc/${data.code}`)
+            .from(`images/${data.code}`)
             .upload(file.name, file);
 
           photosId.push(
-            `https://dotlxibjbjydutyvfurz.supabase.co/storage/v1/object/public/${response.data.fullPath}`
+            `https://dgonkbsonymvqpykxlku.supabase.co/storage/v1/object/public/${response.data.fullPath}`
           );
         }
       }

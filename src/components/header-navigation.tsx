@@ -31,7 +31,7 @@ export function HeaderNavigation() {
       <nav className="flex w-fit justify-between items-center md:items-center gap-1 md:gap-10">
         <Button
           data-enable={activeSection === "hero" && pathname === "/"}
-          className="hover:font-semibold text-xs md:text-base data-[enable=true]:text-primary hover:text-primary font-semibold transition-colors"
+          className="hover:font-semibold text-xs md:text-base data-[enable=true]:text-amber-400 hover:text-primary font-semibold transition-colors"
           variant="ghost"
           size="sm"
           onClick={() => scrollToSection("hero")}
@@ -74,7 +74,7 @@ export function HeaderNavigation() {
         <div className="hidden" />
       ) : (
         <Button
-          className="hidden md:block"
+          className="hidden md:flex"
           size="sm"
           onClick={() => push("/immobiles/register")}
         >

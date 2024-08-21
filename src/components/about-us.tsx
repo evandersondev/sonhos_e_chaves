@@ -52,16 +52,28 @@ export function AboutUs() {
           initial={{ opacity: 0, x: 8 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="flex flex-col items-center justify-end w-full md:w-1/2"
+          className="flex flex-col items-center justify-end gap-8 w-full md:w-1/2"
         >
-          <h2 className="md:self-start mb-8 self-center text-4xl md:text-6xl font-bold text-end">
-            Nossa missão
-          </h2>
-          <p className="md:text-xl text-center px-20 md:px-0 text-base md:text-start text-muted-foreground">
-            Fornecer soluções imobiliárias de qualidade, conectando pessoas aos
-            seus sonhos através de um serviço de excelência, transparência e
-            expertise.
-          </p>
+          <div className="flex flex-col gap-2">
+            <h2 className="md:self-start text-green-950 self-center text-xl md:text-6xl font-bold text-end">
+              Nossa visão
+            </h2>
+            <p className="md:text-lg text-base text-center px-20 md:px-0 md:text-start text-muted-foreground">
+              Ser a imobiliária mais confiável e inovadora da região
+              metropolitana, reconhecida pelo compromisso com a excelência e
+              pela satisfação dos nossos clientes.
+            </p>
+          </div>
+          <div className="flex flex-col gap-2">
+            <h2 className="md:self-start text-green-950 self-center text-xl md:text-6xl font-bold text-end">
+              Nossa missão
+            </h2>
+            <p className="md:text-lg text-center px-20 md:px-0 text-base md:text-start text-muted-foreground">
+              Fornecer soluções imobiliárias de qualidade, conectando pessoas
+              aos seus sonhos através de um serviço de excelência, transparência
+              e expertise.
+            </p>
+          </div>
         </motion.div>
       </div>
     </div>

@@ -90,12 +90,12 @@ export function Filters({ onHanldeSearch }: FiltersProps) {
   return (
     <div className="flex flex-col lg:flex-row items-center gap-4 px-8 py-8 bg-white border border-zinc-200/50 rounded-xl">
       <div className="flex w-full lg:min-w-40 flex-1 flex-col gap-2">
-        <Label htmlFor="search">Filtrar</Label>
+        <Label htmlFor="search">Buscar por</Label>
         <Input
           value={search}
           onChange={handleChangeSearchInput}
           className="w-full"
-          placeholder="Por localidade, código, condominío..."
+          placeholder="localidade, código, condominío"
         />
       </div>
 
@@ -104,7 +104,7 @@ export function Filters({ onHanldeSearch }: FiltersProps) {
         className="h-20 bg-zinc-200/50 hidden lg:block"
       />
 
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex flex-col gap-2 flex-1">
         <Label htmlFor="room">Quartos</Label>
         <Select
           value={rooms}
@@ -130,7 +130,7 @@ export function Filters({ onHanldeSearch }: FiltersProps) {
         className="h-20 bg-zinc-200/50 hidden lg:block"
       />
 
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex flex-col gap-2 flex-1">
         <Label htmlFor="room">Banheiros</Label>
         <Select
           value={bathrooms}
@@ -156,7 +156,7 @@ export function Filters({ onHanldeSearch }: FiltersProps) {
         className="h-20 bg-zinc-200/50 hidden lg:block"
       />
 
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex flex-col gap-2 flex-1">
         <Label htmlFor="email">Tipo</Label>
         <Select
           value={type}
@@ -182,7 +182,7 @@ export function Filters({ onHanldeSearch }: FiltersProps) {
         className="h-20 bg-zinc-200/50 hidden lg:block"
       />
 
-      <div className="flex items-center w-full gap-4 mt-5">
+      <div className="flex items-center w-fit gap-4 mt-5">
         <Button
           disabled={loading}
           type="button"
