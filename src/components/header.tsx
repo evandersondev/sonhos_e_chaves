@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
+import iconImage from "../../public/icon.svg";
 import { HeaderNavigation } from "./header-navigation";
 
 export function Header() {
@@ -14,8 +16,14 @@ export function Header() {
     >
       <div className="container h-full flex items-center justify-between">
         <Link href="/">
-          <div className="flex items-center gap-2">
-            <h1 className="text-xl font-semibold">LOGO</h1>
+          <div className="flex items-center justify-center">
+            <Image
+              src={iconImage}
+              alt="Sonhos & Chaves"
+              width={120}
+              height={120}
+              className="h-12 w-12"
+            />
           </div>
         </Link>
 

@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Instagram, Mail, MessageCircle } from "lucide-react";
+import { Instagram, MessageCircle } from "lucide-react";
+import Image from "next/image";
+import logoImage from "../../public/logo.svg";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 
@@ -13,13 +15,7 @@ export function Footer() {
   }
 
   function handleOpenInstagram() {
-    const url = ``;
-
-    window.open(url, "_blank");
-  }
-
-  function handleOpenEmail() {
-    const url = ``;
+    const url = `https://www.instagram.com/sonhosechaves`;
 
     window.open(url, "_blank");
   }
@@ -34,8 +30,14 @@ export function Footer() {
     >
       <div className="py-16 h-[300] grid grid-cols-1 gap-6 md:grid-cols-2 justify-between container">
         <div className="flex flex-col items-center justify-center">
-          <div className="flex items-center mb-6">
-            <h1 className="text-xl font-semibold">LOGO</h1>
+          <div className="flex items-center">
+            <Image
+              src={logoImage}
+              alt="Sonhos & Chaves"
+              width={150}
+              height={150}
+              className="h-36 w-36"
+            />
           </div>
 
           <span className="text-muted-foreground text-sm leading-relaxed">
@@ -49,24 +51,29 @@ export function Footer() {
           </span>
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col justify-center gap-6">
           <h4 className="text-center font-medium">
             Seu novo lar está a <br />
             apenas um clique de distância.
           </h4>
 
           <div className="flex items-center justify-center gap-4 div">
-            <Button variant="outline" size="icon">
-              <Instagram className="size-5 text-amber-500" />
+            <Button onClick={handleOpenInstagram} variant="outline" size="icon">
+              <Instagram className="size-5 text-primary" />
             </Button>
             <Separator orientation="vertical" className="h-5 bg-zinc-200" />
-            <Button variant="outline" size="icon">
-              <MessageCircle className="size-5 text-amber-500" />
+            <Button onClick={handleOpenWhatsapp} variant="outline" size="icon">
+              <MessageCircle className="size-5 text-primary" />
             </Button>
-            <Separator orientation="vertical" className="h-5 bg-zinc-200" />
-            <Button variant="outline" size="icon">
-              <Mail className="size-5 text-amber-500" />
-            </Button>
+            {/* <Link
+              href="mailto:evandersonvasconcelos23@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="outline" size="icon">
+                <Mail className="size-5 text-primary" />
+              </Button>
+            </Link> */}
           </div>
         </div>
       </div>

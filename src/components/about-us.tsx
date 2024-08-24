@@ -55,7 +55,7 @@ export function AboutUs() {
           className="flex flex-col items-center justify-end gap-8 w-full md:w-1/2"
         >
           <div className="flex flex-col gap-2">
-            <h2 className="md:self-start text-green-950 self-center text-xl md:text-6xl font-bold text-end">
+            <h2 className="md:self-start text-primary self-center text-xl md:text-6xl font-bold text-end">
               Nossa visão
             </h2>
             <p className="md:text-lg text-base text-center px-20 md:px-0 md:text-start text-muted-foreground">
@@ -65,7 +65,7 @@ export function AboutUs() {
             </p>
           </div>
           <div className="flex flex-col gap-2">
-            <h2 className="md:self-start text-green-950 self-center text-xl md:text-6xl font-bold text-end">
+            <h2 className="md:self-start text-primary self-center text-xl md:text-6xl font-bold text-end">
               Nossa missão
             </h2>
             <p className="md:text-lg text-center px-20 md:px-0 text-base md:text-start text-muted-foreground">

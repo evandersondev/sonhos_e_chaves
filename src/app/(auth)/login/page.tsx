@@ -1,25 +1,27 @@
-'use client'
+"use client";
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Loader2 } from 'lucide-react'
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
-import { z } from 'zod'
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import { signIn } from "next-auth/react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+import logoImage from "../../../../public/icon.svg";
 
 const loginSchema = z.object({
   email: z.string().email(),
   password: z.string(),
-})
+});
 
-type LoginSchema = z.infer<typeof loginSchema>
+type LoginSchema = z.infer<typeof loginSchema>;
 
 export default function Login() {
-  const router = useRouter()
+  const router = useRouter();
 
   const {
     handleSubmit,
@@ -27,33 +29,42 @@ export default function Login() {
     formState: { isSubmitting, errors },
   } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
-  })
+  });
 
-  async function handleLoginSubmit({email, password}: LoginSchema) {
-    'use serve'
+  async function handleLoginSubmit({ email, password }: LoginSchema) {
+    "use serve";
     try {
-      const result = await signIn("credentials", {email, password, redirect: false })
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
 
       if (result.error) {
         console.error(result.error);
-        toast.error(
-          'Falha no servidor',
-        )
+        toast.error("Falha no servidor");
       } else {
-        router.push('/')
+        router.push("/");
       }
     } catch (err) {
       toast.error(
-        'Falha ao tentar fazer o login, verifique os campos e tente novamente',
-      )
+        "Falha ao tentar fazer o login, verifique os campos e tente novamente"
+      );
     }
   }
 
-  console.log(errors)
-
   return (
-    <div className="h-screen w-full flex items-center flex-col gap-8 px-6 justify-center">
-      <h1 className="text-center text-4xl font-bold">Login</h1>
+    <div className="h-screen w-full flex items-center flex-col gap-6 px-6 justify-center">
+      <div className="flex items-center">
+        <Image
+          src={logoImage}
+          alt="Sonhos & Chaves"
+          width={150}
+          height={150}
+          className="h-24 w-24"
+        />
+      </div>
+      <h1 className="text-center text-4xl font-bold">Faça Login</h1>
       <form
         onSubmit={handleSubmit(handleLoginSubmit)}
         className="w-full max-w-80 flex flex-col gap-4"
@@ -64,7 +75,7 @@ export default function Login() {
             id="email"
             type="email"
             placeholder="Digite seu e-mail..."
-            {...register('email')}
+            {...register("email")}
           />
         </div>
         <div className="space-y-2">
@@ -72,7 +83,7 @@ export default function Login() {
           <Input
             id="password"
             placeholder="Digite sua senha..."
-            {...register('password')}
+            {...register("password")}
           />
         </div>
         <Button disabled={isSubmitting} type="submit">
@@ -81,5 +92,5 @@ export default function Login() {
         </Button>
       </form>
     </div>
-  )
+  );
 }

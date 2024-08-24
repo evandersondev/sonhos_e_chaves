@@ -20,7 +20,7 @@ export function Hero() {
       className="py-16 w-full"
     >
       <div className="container md:h-[400px] flex-col p-6 md:p-20 lg:p-40 items-center relative flex justify-center rounded-2xl">
-        <h1 className="mb-4 md:mb-8 text-4xl md:text-5xl lg:text-6xl font-bold text-center">
+        <h1 className="mb-4 text-secondary md:mb-8 text-4xl px-20 md:text-5xl lg:text-6xl font-bold text-center">
           Seu novo lar está a apenas um clique de distância.
         </h1>
         <p className="px-0 md:px-16 text-base md:text-xl text-center text-muted-foreground">

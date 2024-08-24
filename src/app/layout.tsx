@@ -18,6 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <title>Sonhos & Chaves</title>
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+      </head>
       <body className={inter.className}>
         <SessionProvider>
           {children}
