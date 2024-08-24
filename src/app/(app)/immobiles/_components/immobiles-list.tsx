@@ -36,7 +36,7 @@ export function ImmobilesList({
 }: ImmobilesListProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const { refresh, replace, push } = useRouter();
+  const { refresh, replace } = useRouter();
   const [loading, setLoading] = useState(false);
   const [modalDeleteIsOpen, setModalDeleteIsOpen] = useState(false);
 

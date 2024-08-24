@@ -61,7 +61,7 @@ export function ImmobileCard({
           <div className="md:h-[470px]">
             <Card
               onClick={() => handleImmbileView(immobile.id)}
-              className="shadow-none relative rounded-xl overflow-hidden cursor-pointer hover:border-primary"
+              className="shadow-none relative rounded-xl overflow-hidden cursor-pointer hover:border-spacing-2 hover:border-primary"
             >
               <CardHeader className="w-full h-52 p-0 rounded-t-md">
                 <Image

@@ -218,7 +218,9 @@ export function ImmobileForm({ immobile }: ImmobileFormProps) {
         </div>
 
         <div className="flex flex-col gap-6">
-          {(type === "condominium" || type === "apartment") && (
+          {(type === "condominium" ||
+            type === "apartment" ||
+            type === "residential") && (
             <div className="space-y-1">
               <Label htmlFor="size">Nome do condomínio</Label>
               <Input
@@ -250,6 +252,9 @@ export function ImmobileForm({ immobile }: ImmobileFormProps) {
                   <SelectItem value="house">Casa</SelectItem>
                   <SelectItem value="apartment">Apartamento</SelectItem>
                   <SelectItem value="condominium">Condomínio</SelectItem>
+                  <SelectItem value="ground">Terreno</SelectItem>
+                  <SelectItem value="commercial">Comercial</SelectItem>
+                  <SelectItem value="residential">Residencial</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>

@@ -1,11 +1,18 @@
-import { prisma } from '@/lib/prisma'
-import { z } from 'zod'
+import { prisma } from "@/lib/prisma";
+import { z } from "zod";
 
 const bodySchema = z.object({
   code: z.string(),
   name: z.string().optional(),
   address: z.string(),
-  type: z.enum(['apartment', 'condominium', 'house']),
+  type: z.enum([
+    "apartment",
+    "condominium",
+    "house",
+    "ground",
+    "commercial",
+    "residential",
+  ]),
   price: z.string(),
   size: z.string(),
   rooms: z.number(),
@@ -13,10 +20,10 @@ const bodySchema = z.object({
   garage: z.number(),
   description: z.string(),
   photosId: z.array(z.string()),
-})
+});
 
 export async function POST(req: Request) {
-  const body = bodySchema.parse(await req.json())
+  const body = bodySchema.parse(await req.json());
 
   await prisma.immobile.create({
     data: {
@@ -32,7 +39,7 @@ export async function POST(req: Request) {
       description: body.description,
       photosId: body.photosId,
     },
-  })
+  });
 
-  return Response.json({})
+  return Response.json({});
 }

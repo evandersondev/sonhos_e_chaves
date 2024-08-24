@@ -172,6 +172,9 @@ export function Filters({ onHanldeSearch }: FiltersProps) {
               <SelectItem value="house">Casa</SelectItem>
               <SelectItem value="apartment">Apartamento</SelectItem>
               <SelectItem value="condominium">Condomínio</SelectItem>
+              <SelectItem value="ground">Terreno</SelectItem>
+              <SelectItem value="commercial">Comercial</SelectItem>
+              <SelectItem value="residential">Residencial</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>

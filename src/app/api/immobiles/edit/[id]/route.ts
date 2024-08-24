@@ -1,24 +1,33 @@
-import { prisma } from '@/lib/prisma'
-import { z } from 'zod'
+import { prisma } from "@/lib/prisma";
+import { z } from "zod";
 
 const bodySchema = z.object({
   code: z.string().optional(),
   name: z.string().optional(),
   address: z.string().optional(),
-  type: z.enum(['apartment', 'condominium', 'house']).optional(),
+  type: z
+    .enum([
+      "apartment",
+      "condominium",
+      "house",
+      "ground",
+      "commercial",
+      "residential",
+    ])
+    .optional(),
   price: z.string().optional(),
   size: z.string().optional(),
   rooms: z.number().optional(),
   bathrooms: z.number().optional(),
   garage: z.number().optional(),
   description: z.string().optional(),
-})
+});
 
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: { id: string } }
 ) {
-  const body = bodySchema.parse(await req.json())
+  const body = bodySchema.parse(await req.json());
   await prisma.immobile.update({
     where: {
       id: params.id,
@@ -35,7 +44,7 @@ export async function PUT(
       garage: body.garage,
       description: body.description,
     },
-  })
+  });
 
-  return Response.json({})
+  return Response.json({});
 }

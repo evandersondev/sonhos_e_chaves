@@ -28,6 +28,9 @@ enum Type {
   house
   apartment
   condominium
+  ground
+  commercial
+  residential
 }
 
 model User {
