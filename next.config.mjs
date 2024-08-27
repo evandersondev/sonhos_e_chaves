@@ -3,7 +3,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'dotlxibjbjydutyvfurz.supabase.co',
+        hostname: 'dgonkbsonymvqpykxlku.supabase.co',
       },
     ],
   },

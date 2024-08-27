@@ -97,9 +97,11 @@ export function ImmobileForm({ immobile }: ImmobileFormProps) {
             .from(`images/${data.code}`)
             .update(file.name, file);
 
-          photosId.push(
-            `https://dgonkbsonymvqpykxlku.supabase.co/storage/v1/object/public/${response.data.fullPath}`
-          );
+          const result = await supabase.storage
+            .from(`images/${data.code}`)
+            .getPublicUrl(response.data.path);
+
+          photosId.push(result.data.publicUrl);
         }
       } else {
         for await (const file of filesData) {
@@ -107,9 +109,11 @@ export function ImmobileForm({ immobile }: ImmobileFormProps) {
             .from(`images/${data.code}`)
             .upload(file.name, file);
 
-          photosId.push(
-            `https://dgonkbsonymvqpykxlku.supabase.co/storage/v1/object/public/${response.data.fullPath}`
-          );
+          const result = await supabase.storage
+            .from(`images/${data.code}`)
+            .getPublicUrl(response.data.path);
+
+          photosId.push(result.data.publicUrl);
         }
       }
 
