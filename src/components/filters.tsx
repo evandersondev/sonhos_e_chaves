@@ -24,7 +24,7 @@ type FiltersProps = {
 export function Filters({ onHanldeSearch }: FiltersProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const { replace, push, refresh } = useRouter();
+  const { replace } = useRouter();
   const [loading, setLoading] = useState(false);
 
   const [search, setSearch] = useState(searchParams.get("q") || "");
@@ -84,7 +84,7 @@ export function Filters({ onHanldeSearch }: FiltersProps) {
     params.delete("type");
 
     replace(`${pathname}`);
-    refresh();
+    handleSearchSubmit()
   }
 
   return (

@@ -52,7 +52,7 @@ export default function ImmobilePage({ params }: ImmobilePageProps) {
   }
 
   return (
-    <div className="mx-auto w-full lg:w-[1280px] items-center grid gap-12 py-6 grid-cols-1 lg:grid-cols-2">
+    <div className="w-full container items-center grid gap-12 py-6 grid-cols-1 lg:grid-cols-2">
       <div className="flex flex-col items-center w-full">
         <div className="w-full h-[500px] mb-4 overflow-hidden aspect-square">
           {loading ? (
@@ -64,8 +64,8 @@ export default function ImmobilePage({ params }: ImmobilePageProps) {
               className="object-cover border rounded-md aspect-square h-full w-full"
               src={imageSelected}
               alt={immobile?.code}
-              width={700}
-              height={700}
+              width={900}
+              height={900}
             />
           )}
         </div>
@@ -89,7 +89,7 @@ export default function ImmobilePage({ params }: ImmobilePageProps) {
                 : immobile?.photosId?.map((id) => (
                     <CarouselItem
                       key={id}
-                      className="md:basis-1/2 lg:basis-1/4"
+                      className="basis-3/2  lg:basis-1/4"
                     >
                       <Button
                         onClick={() => handleSelectedImage(id)}
@@ -138,9 +138,9 @@ export default function ImmobilePage({ params }: ImmobilePageProps) {
               orientation="horizontal"
               className="h-[1px] bg-zinc-100"
             />
-            <div className="flex items-center gap-6 mt-8 text-muted-foreground">
+            <div className="flex items-center justify-around gap-6 mt-8 text-muted-foreground">
               {immobile?.size && (
-                <span className="flex items-center gap-2">
+                <span className="flex-col text-center text-xs md:text-base md:flex items-center gap-2">
                   <div className="flex items-center justify-center border rounded-md size-10 bg-zinc-50">
                     <Ruler className="size-4" />
                   </div>
@@ -148,7 +148,7 @@ export default function ImmobilePage({ params }: ImmobilePageProps) {
                 </span>
               )}
               {immobile?.rooms && (
-                <span className="flex items-center gap-2">
+                <span className="flex-col text-center text-xs md:text-base md:flex items-center gap-2">
                   <div className="flex items-center justify-center border rounded-md size-10 bg-zinc-50">
                     <Bed className="size-4" />
                   </div>
@@ -156,7 +156,7 @@ export default function ImmobilePage({ params }: ImmobilePageProps) {
                 </span>
               )}
               {immobile?.bathrooms && (
-                <span className="flex items-center gap-2">
+                <span className="flex-col text-center text-xs md:text-base md:flex items-center gap-2">
                   <div className="flex items-center justify-center border rounded-md size-10 bg-zinc-50">
                     <Bath className="size-4" />
                   </div>
@@ -164,7 +164,7 @@ export default function ImmobilePage({ params }: ImmobilePageProps) {
                 </span>
               )}
               {immobile?.garage && (
-                <span className="flex items-center gap-2">
+                <span className="flex-col text-center text-xs md:text-base md:flex items-center gap-2">
                   <div className="flex items-center justify-center border rounded-md size-10 bg-zinc-50">
                     <Car className="size-4" />
                   </div>
