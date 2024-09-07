@@ -1,7 +1,7 @@
 'use serve'
 
-import { auth } from "@/lib/auth"
+import { auth } from '@/lib/auth'
 
 export async function getSession() {
-    return await auth()
+  return await auth()
 }

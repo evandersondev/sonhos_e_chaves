@@ -1,7 +1,6 @@
-import { api } from "@/lib/api";
-import { ImmobileType } from "@/types/immobile-type";
+import { api } from '@/lib/api'
+import { ImmobileType } from '@/types/immobile-type'
 
 export async function editImmobile(immobile: ImmobileType) {
-    await api.put(`/immobiles/edit/${immobile.id}`, immobile)
-  }
-  
+  await api.put(`/immobiles/edit/${immobile.id}`, immobile)
+}

@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        hostname: 'dgonkbsonymvqpykxlku.supabase.co',
-      },
-    ],
-  },
-}
+	images: {
+		remotePatterns: [
+			{
+				hostname: "dgonkbsonymvqpykxlku.supabase.co",
+			},
+		],
+	},
+};
 
-export default nextConfig
+export default nextConfig;

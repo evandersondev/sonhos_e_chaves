@@ -1,84 +1,84 @@
-"use client";
+'use client'
 
-import { ImmobileCard } from "@/components/immobile-card";
-import { Button } from "@/components/ui/button";
+import { ImmobileCard } from '@/components/immobile-card'
+import { Button } from '@/components/ui/button'
 import {
   Pagination,
   PaginationContent,
-  PaginationItem,
-} from "@/components/ui/pagination";
-import { deleteImmobile } from "@/data/delete-immobile";
-import { ImmobileType } from "@/types/immobile-type";
+  PaginationItem
+} from '@/components/ui/pagination'
+import { deleteImmobile } from '@/data/delete-immobile'
+import { ImmobileType } from '@/types/immobile-type'
 import {
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
-  ChevronsRight,
-} from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { ImmobilesEmpty } from "./immobiles-empty";
+  ChevronsRight
+} from 'lucide-react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useState } from 'react'
+import { ImmobilesEmpty } from './immobiles-empty'
 
 type ImmobilesListProps = {
-  immobiles: ImmobileType[];
-  totalCount: number;
-  totalPages: number;
-  currentPage: number;
-  onHanldeSearch: (page?: number) => Promise<void>;
-};
+  immobiles: ImmobileType[]
+  totalCount: number
+  totalPages: number
+  currentPage: number
+  onHanldeSearch: (page?: number) => Promise<void>
+}
 
 export function ImmobilesList({
   immobiles,
   currentPage,
   totalCount,
   totalPages,
-  onHanldeSearch,
+  onHanldeSearch
 }: ImmobilesListProps) {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { refresh, replace } = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [modalDeleteIsOpen, setModalDeleteIsOpen] = useState(false);
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const { refresh, replace } = useRouter()
+  const [loading, setLoading] = useState(false)
+  const [modalDeleteIsOpen, setModalDeleteIsOpen] = useState(false)
 
   async function handleDeleteImmobile(immobile: ImmobileType) {
-    setLoading(true);
-    await deleteImmobile(immobile);
-    setLoading(false);
-    setModalDeleteIsOpen(false);
-    refresh();
+    setLoading(true)
+    await deleteImmobile(immobile)
+    setLoading(false)
+    setModalDeleteIsOpen(false)
+    refresh()
   }
 
   function handleChangePage(page: number) {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", String(page));
-    replace(`${pathname}?${params.toString()}`);
+    const params = new URLSearchParams(searchParams)
+    params.set('page', String(page))
+    replace(`${pathname}?${params.toString()}`)
   }
 
   function handlePrevPage() {
     if (currentPage > 1) {
-      handleChangePage(currentPage - 1);
-      onHanldeSearch(currentPage - 1);
+      handleChangePage(currentPage - 1)
+      onHanldeSearch(currentPage - 1)
     }
   }
 
   function handleNextPage() {
     if (currentPage < totalPages) {
-      handleChangePage(currentPage + 1);
-      onHanldeSearch(currentPage + 1);
+      handleChangePage(currentPage + 1)
+      onHanldeSearch(currentPage + 1)
     }
   }
 
   function handleLastPage() {
     if (currentPage < totalPages) {
-      handleChangePage(totalPages);
-      onHanldeSearch(totalPages);
+      handleChangePage(totalPages)
+      onHanldeSearch(totalPages)
     }
   }
 
   function handleFirstPage() {
     if (currentPage > 1) {
-      handleChangePage(1);
-      onHanldeSearch(1);
+      handleChangePage(1)
+      onHanldeSearch(1)
     }
   }
 
@@ -87,9 +87,9 @@ export function ImmobilesList({
       {immobiles?.length < 1 ? (
         <ImmobilesEmpty />
       ) : (
-        <div className="flex-col h-full flex-1 gap-6 flex">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {immobiles?.map((immobile) => {
+        <div className='flex-col h-full flex-1 gap-6 flex'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+            {immobiles?.map(immobile => {
               return (
                 <ImmobileCard
                   key={immobile.code}
@@ -99,57 +99,57 @@ export function ImmobilesList({
                   modalDeleteIsOpen={modalDeleteIsOpen}
                   setModalDeleteIsOpen={setModalDeleteIsOpen}
                 />
-              );
+              )
             })}
           </div>
-          <footer className="flex items-center justify-between pb-8">
-            <span className="text-xs md:text-sm text-muted-foreground">
+          <footer className='flex items-center justify-between pb-8'>
+            <span className='text-xs md:text-sm text-muted-foreground'>
               Total de {totalCount} encontrados
             </span>
-            <div className="flex items-center gap-4">
-              <span className="text-xs md:text-sm text-muted-foreground">
+            <div className='flex items-center gap-4'>
+              <span className='text-xs md:text-sm text-muted-foreground'>
                 Página {currentPage} de {totalPages}
               </span>
-              <Pagination className="w-fit">
+              <Pagination className='w-fit'>
                 <PaginationContent>
                   <PaginationItem>
                     <Button
                       disabled={currentPage === 1}
                       onClick={handleFirstPage}
-                      size="icon"
-                      variant="outline"
+                      size='icon'
+                      variant='outline'
                     >
-                      <ChevronsLeft className="size-4 " />
+                      <ChevronsLeft className='size-4 ' />
                     </Button>
                   </PaginationItem>
                   <PaginationItem>
                     <Button
                       disabled={currentPage === 1}
                       onClick={handlePrevPage}
-                      size="icon"
-                      variant="outline"
+                      size='icon'
+                      variant='outline'
                     >
-                      <ChevronLeft className="size-4 " />
+                      <ChevronLeft className='size-4 ' />
                     </Button>
                   </PaginationItem>
                   <PaginationItem>
                     <Button
                       disabled={currentPage === totalPages}
                       onClick={handleNextPage}
-                      size="icon"
-                      variant="outline"
+                      size='icon'
+                      variant='outline'
                     >
-                      <ChevronRight className="size-4" />
+                      <ChevronRight className='size-4' />
                     </Button>
                   </PaginationItem>
                   <PaginationItem>
                     <Button
                       disabled={currentPage === totalPages}
                       onClick={handleLastPage}
-                      size="icon"
-                      variant="outline"
+                      size='icon'
+                      variant='outline'
                     >
-                      <ChevronsRight className="size-4" />
+                      <ChevronsRight className='size-4' />
                     </Button>
                   </PaginationItem>
                 </PaginationContent>
@@ -159,5 +159,5 @@ export function ImmobilesList({
         </div>
       )}
     </>
-  );
+  )
 }

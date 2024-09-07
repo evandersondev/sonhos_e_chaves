@@ -1,96 +1,96 @@
-"use client";
+'use client'
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
-import { signIn } from "next-auth/react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { z } from "zod";
-import logoImage from "../../../../public/icon.svg";
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader2 } from 'lucide-react'
+import { signIn } from 'next-auth/react'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { z } from 'zod'
+import logoImage from '../../../../public/icon.svg'
 
 const loginSchema = z.object({
   email: z.string().email(),
-  password: z.string(),
-});
+  password: z.string()
+})
 
-type LoginSchema = z.infer<typeof loginSchema>;
+type LoginSchema = z.infer<typeof loginSchema>
 
 export default function Login() {
-  const router = useRouter();
+  const router = useRouter()
 
   const {
     handleSubmit,
     register,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, errors }
   } = useForm<LoginSchema>({
-    resolver: zodResolver(loginSchema),
-  });
+    resolver: zodResolver(loginSchema)
+  })
 
   async function handleLoginSubmit({ email, password }: LoginSchema) {
-    "use serve";
+    'use serve'
     try {
-      const result = await signIn("credentials", {
+      const result = await signIn('credentials', {
         email,
         password,
-        redirect: false,
-      });
+        redirect: false
+      })
 
       if (result.error) {
-        console.error(result.error);
-        toast.error("Falha no servidor");
+        console.error(result.error)
+        toast.error('Falha no servidor')
       } else {
-        router.push("/");
+        router.push('/')
       }
     } catch (err) {
       toast.error(
-        "Falha ao tentar fazer o login, verifique os campos e tente novamente"
-      );
+        'Falha ao tentar fazer o login, verifique os campos e tente novamente'
+      )
     }
   }
 
   return (
-    <div className="h-screen w-full flex items-center flex-col gap-6 px-6 justify-center">
-      <div className="flex items-center">
+    <div className='h-screen w-full flex items-center flex-col gap-6 px-6 justify-center'>
+      <div className='flex items-center'>
         <Image
           src={logoImage}
-          alt="Sonhos & Chaves"
+          alt='Sonhos & Chaves'
           width={150}
           height={150}
-          className="h-24 w-24"
+          className='h-24 w-24'
         />
       </div>
-      <h1 className="text-center text-4xl font-bold">Faça Login</h1>
+      <h1 className='text-center text-4xl font-bold'>Faça Login</h1>
       <form
         onSubmit={handleSubmit(handleLoginSubmit)}
-        className="w-full max-w-80 flex flex-col gap-4"
+        className='w-full max-w-80 flex flex-col gap-4'
       >
-        <div className="space-y-2">
-          <Label htmlFor="email">E-mail</Label>
+        <div className='space-y-2'>
+          <Label htmlFor='email'>E-mail</Label>
           <Input
-            id="email"
-            type="email"
-            placeholder="Digite seu e-mail..."
-            {...register("email")}
+            id='email'
+            type='email'
+            placeholder='Digite seu e-mail...'
+            {...register('email')}
           />
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="password">Senha</Label>
+        <div className='space-y-2'>
+          <Label htmlFor='password'>Senha</Label>
           <Input
-            id="password"
-            placeholder="Digite sua senha..."
-            {...register("password")}
+            id='password'
+            placeholder='Digite sua senha...'
+            {...register('password')}
           />
         </div>
-        <Button disabled={isSubmitting} type="submit">
-          {isSubmitting && <Loader2 className="size-4 mr-2 animate-spin" />}
+        <Button disabled={isSubmitting} type='submit'>
+          {isSubmitting && <Loader2 className='size-4 mr-2 animate-spin' />}
           Entrar
         </Button>
       </form>
     </div>
-  );
+  )
 }
