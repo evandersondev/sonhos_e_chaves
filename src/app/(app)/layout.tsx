@@ -1,4 +1,5 @@
 import { Header } from '@/components/header'
+import { Suspense } from 'react'
 
 export default function AppLayout({
   children
@@ -6,9 +7,9 @@ export default function AppLayout({
   children: React.ReactNode
 }>) {
   return (
-    <>
+    <Suspense fallback={<div />}>
       <Header />
       {children}
-    </>
+    </Suspense>
   )
 }
