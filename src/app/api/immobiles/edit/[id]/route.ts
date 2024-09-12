@@ -20,7 +20,8 @@ const bodySchema = z.object({
   rooms: z.number().optional(),
   bathrooms: z.number().optional(),
   garage: z.number().optional(),
-  description: z.string().optional()
+  description: z.string().optional(),
+  photoPreview: z.string().optional()
 })
 
 export async function PUT(
@@ -28,6 +29,7 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   const body = bodySchema.parse(await req.json())
+
   await prisma.immobile.update({
     where: {
       id: params.id
@@ -42,7 +44,8 @@ export async function PUT(
       rooms: body.rooms,
       bathrooms: body.bathrooms,
       garage: body.garage,
-      description: body.description
+      description: body.description,
+      photoPreview: body.photoPreview
     }
   })
 

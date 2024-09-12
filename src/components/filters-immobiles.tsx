@@ -36,7 +36,7 @@ type FiltersProps = {
 export function Filters({ onHanldeSearch }: FiltersProps) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
-  const { replace, push } = useRouter()
+  const { replace } = useRouter()
   const [loading, setLoading] = useState(false)
 
   const { register, handleSubmit, watch, setValue } = useForm<FiltersSchemaType>({

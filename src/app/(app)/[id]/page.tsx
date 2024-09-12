@@ -81,13 +81,13 @@ export default function ImmobilePage({ params }: ImmobilePageProps) {
                 ? Array.from({ length: 3 }).map((_, index) => (
                   <CarouselItem
                     key={index}
-                    className='basis-3/2  lg:basis-1/3'
+                    className='basis-3/2  md:basis-1/3 lg:basis-1/4'
                   >
                     <Skeleton className='h-28 w-28 p-1' />
                   </CarouselItem>
                 ))
                 : immobile?.photosId?.map(id => (
-                  <CarouselItem key={id} className='basis-3/2  lg:basis-1/3'>
+                  <CarouselItem key={id} className='basis-3/2  md:basis-1/3 lg:basis-1/4'>
                     <Button
                       onClick={() => handleSelectedImage(id)}
                       variant='outline'

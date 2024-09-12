@@ -10,5 +10,6 @@ export type ImmobileType = {
   bathrooms: number
   garage: number
   description: string
-  photosId: string[]
+  photosId?: string[]
+  photoPreview?: string
 }

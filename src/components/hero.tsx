@@ -1,15 +1,9 @@
 'use client'
 
-import { useWindowWidth } from '@/utils/use-window-width'
 import { motion } from 'framer-motion'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { Filters } from './filters'
-import { FiltersMobile } from './filters-mobile'
+import { FiltersHome } from './filters-home'
 
 export function Hero() {
-  const windowWidth = useWindowWidth()
-  const searchParams = useSearchParams()
-  const { push } = useRouter()
 
   return (
     <motion.div
@@ -31,20 +25,8 @@ export function Hero() {
         </p>
       </div>
 
-      <div className='container'>
-        {windowWidth > 768 ? (
-          <Filters
-            onHanldeSearch={async () => {
-              push(`immobiles?${searchParams.toString()}`)
-            }}
-          />
-        ) : (
-          <FiltersMobile
-            onHanldeSearch={async () => {
-              push(`immobiles?${searchParams.toString()}`)
-            }}
-          />
-        )}
+      <div className='w-full max-w-[700px] px-8 mx-auto'>
+        <FiltersHome />
       </div>
     </motion.div>
   )

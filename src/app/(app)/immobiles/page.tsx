@@ -1,6 +1,6 @@
 'use client'
 
-import { Filters } from '@/components/filters'
+import { Filters } from '@/components/filters-immobiles'
 import { FiltersMobile } from '@/components/filters-mobile'
 import { api } from '@/lib/api'
 import type { ImmobileType } from '@/types/immobile-type'
@@ -14,16 +14,6 @@ interface ResponseData {
   totalCount: number
   totalPages: number
   currentPage: number
-}
-
-type ImmobilesProps = {
-  searchParams?: {
-    q?: string
-    rooms?: string
-    bathrooms?: string
-    garage?: string
-    type?: string
-  }
 }
 
 export default function Immobiles() {

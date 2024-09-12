@@ -23,11 +23,7 @@ interface ResponseData {
   currentPage: number
 }
 
-type ImmobileProps = {
-  searchParams?: { q?: string }
-}
-
-export function Immobile({ searchParams }: ImmobileProps) {
+export function Immobile() {
   const [immobiles, setImmobiles] = useState<ImmobileType[]>([])
 
   useEffect(() => {
@@ -71,25 +67,25 @@ export function Immobile({ searchParams }: ImmobileProps) {
           <CarouselContent>
             {immobiles?.length < 1
               ? Array.from({ length: 10 }, (_, index) => {
-                  return (
-                    <CarouselItem
-                      key={index}
-                      className='w-full md:basis-1/2 lg:basis-1/3'
-                    >
-                      <Skeleton className='h-[470px] w-full p-1' />
-                    </CarouselItem>
-                  )
-                })
+                return (
+                  <CarouselItem
+                    key={index}
+                    className='w-full md:basis-1/2 lg:basis-1/3'
+                  >
+                    <Skeleton className='h-[470px] w-full p-1' />
+                  </CarouselItem>
+                )
+              })
               : immobiles?.map(immobile => {
-                  return (
-                    <CarouselItem
-                      key={immobile.code}
-                      className='w-full md:basis-1/2 lg:basis-1/3'
-                    >
-                      <ImmobileCard immobile={immobile} />
-                    </CarouselItem>
-                  )
-                })}
+                return (
+                  <CarouselItem
+                    key={immobile.code}
+                    className='w-full md:basis-1/2 lg:basis-1/3'
+                  >
+                    <ImmobileCard immobile={immobile} />
+                  </CarouselItem>
+                )
+              })}
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />

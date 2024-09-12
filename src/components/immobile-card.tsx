@@ -65,7 +65,7 @@ export function ImmobileCard({
             >
               <CardHeader className='w-full h-52 p-0 rounded-t-md'>
                 <Image
-                  src={immobile.photosId[0]}
+                  src={immobile.photoPreview ?? immobile.photosId[0]}
                   className='h-full w-full group-hover:scale-105 transition-transform object-cover'
                   alt={immobile.address}
                   width={400}

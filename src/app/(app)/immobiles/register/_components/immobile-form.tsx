@@ -22,6 +22,7 @@ import { formatCurrency } from '@/utils/format-currency'
 import { zodResolver } from '@hookform/resolvers/zod'
 import crypto from 'crypto'
 import { ImagePlus, Loader2 } from 'lucide-react'
+import Image from 'next/image'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -35,17 +36,15 @@ const immobileSchema = z.object({
   price: z.string(),
   size: z.string(),
   rooms: z
-    .string()
-    .transform(value => Number(value)),
+    .string().optional(),
   bathrooms: z
-    .string()
-    .transform(value => Number(value)),
+    .string().optional(),
   garage: z
     .string()
-    .optional()
-    .transform(value => Number(value)),
+    .optional(),
   description: z.string().optional(),
-  files: z.array(z.instanceof(File))
+  files: z.array(z.instanceof(File)),
+  photoPreview: z.string().url().optional(),
 })
 
 type ImmobileSchema = z.infer<typeof immobileSchema>
@@ -72,11 +71,12 @@ export function ImmobileForm({ immobile }: ImmobileFormProps) {
         type: immobile.type,
         price: immobile.price,
         size: immobile.size,
-        rooms: immobile.rooms,
-        bathrooms: immobile.bathrooms,
-        garage: immobile.garage,
+        rooms: String(immobile.rooms),
+        bathrooms: String(immobile.bathrooms),
+        garage: String(immobile.garage),
         description: immobile.description,
-        files: []
+        files: [],
+        photoPreview: immobile.photoPreview,
       }
       : {
       }
@@ -86,6 +86,7 @@ export function ImmobileForm({ immobile }: ImmobileFormProps) {
   const price = watch('price', immobile ? immobile.price : '')
   const type = watch('type', immobile ? immobile.type : '')
   const filesData = watch('files', [])
+  const photoPreview = watch('photoPreview', immobile ? immobile.photoPreview : null);
 
   async function handleRegisterSubmit(data: ImmobileSchema) {
     try {
@@ -127,9 +128,9 @@ export function ImmobileForm({ immobile }: ImmobileFormProps) {
         type: data.type,
         price: data.price,
         size: data.size,
-        rooms: data.rooms,
-        bathrooms: data.bathrooms,
-        garage: data.garage,
+        rooms: Number(data.rooms),
+        bathrooms: Number(data.bathrooms),
+        garage: Number(data.garage),
         description: data.description,
         photosId
       })
@@ -153,11 +154,12 @@ export function ImmobileForm({ immobile }: ImmobileFormProps) {
         type: data.type,
         price: data.price,
         size: data.size,
-        rooms: data.rooms,
-        bathrooms: data.bathrooms,
-        garage: data.garage,
+        rooms: Number(data.rooms),
+        bathrooms: Number(data.bathrooms),
+        garage: Number(data.garage),
         description: data.description,
-        photosId: immobile.photosId
+        photosId: immobile.photosId,
+        photoPreview: photoPreview,
       })
 
       toast.success('Imóvel editado com sucesso!')
@@ -169,6 +171,7 @@ export function ImmobileForm({ immobile }: ImmobileFormProps) {
 
   async function generateUniqueCode() {
     'use serve'
+
     const value: string = crypto
       .randomBytes(6)
       .toString('hex')
@@ -342,6 +345,29 @@ export function ImmobileForm({ immobile }: ImmobileFormProps) {
               />
             </div>
           </div>
+
+          {immobile && (
+            <div className='space-y-1'>
+
+              <Label>Foto de destaque</Label>
+              <div className='w-full h-full gap-1 grid grid-cols-7'>
+                {immobile.photosId.map(photo => {
+                  return (
+                    <Image
+                      onClick={() => setValue('photoPreview', photo)}
+                      data-preview={photoPreview === photo}
+                      className='w-20 h-20 cursor-pointer rounded-md border-transparent data-[preview=true]:border-primary border-2 border-spacing-4 p-0.5'
+                      width={500}
+                      height={500}
+                      key={photo}
+                      src={photo}
+                      alt={photo}
+                    />
+                  )
+                })}
+              </div>
+            </div>
+          )}
 
           {!immobile && (
             <Label
